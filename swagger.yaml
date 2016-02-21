@@ -6,7 +6,7 @@ info:
   contact:
     name: API Team
     url: 'http://support.safetypay.com'
-    email: support@safetypay.com  
+    email: support@safetypay.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -17,6 +17,7 @@ tags:
     description: Operations related to authentication
   - name: CustomerSection
     description: Operations about Customer
+  - name: CommonSection
 schemes:
   - https
 paths:
@@ -74,7 +75,8 @@ paths:
       operationId: putCustomersId
       consumes:
         - application/json
-      produces: []
+      produces:
+        - application/json
       parameters:
         - name: id
           in: path
@@ -157,7 +159,7 @@ paths:
         '500':
           description: Error 500
           schema:
-            $ref: '#/definitions/Error'          
+            $ref: '#/definitions/Error'
   /users:
     get:
       tags:
@@ -409,10 +411,12 @@ paths:
       operationId: putUsersId
       consumes:
         - application/json
-      produces: []
+      produces:
+        - application/json
       parameters:
         - name: id
           in: path
+          description: User ID
           required: true
           type: string
         - in: body
@@ -495,6 +499,23 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
+  Customer:
+    type: object
+    required:
+      - email
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+        description: ''
+      phone:
+        type: string
   User:
     type: object
     properties:
@@ -517,23 +538,6 @@ definitions:
         type: integer
         format: int32
         description: User Status
-  Customer:
-    type: object
-    required:
-      - email
-    properties:
-      id:
-        type: integer
-        format: int32
-      name:
-        type: string
-      lastname:
-        type: string
-      email:
-        type: string
-        description: ''
-      phone:
-        type: string
   Status:
     type: object
     properties:
@@ -552,6 +556,18 @@ definitions:
         format: int32
       name:
         type: string
+  LoginCredentials:
+    type: object
+    required:
+      - password
+      - username
+    properties:
+      username:
+        type: string
+        description: Username
+      password:
+        type: string
+        description: Password
   Type:
     type: object
     properties:
