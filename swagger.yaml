@@ -160,7 +160,98 @@ paths:
           description: Error 500
           schema:
             $ref: '#/definitions/Error'
-  /users:
+  '/customers':
+    get:
+      tags:
+        - CustomerSection
+      summary: Get Customers List
+      description: Get Customers List
+      operationId: getCustomers
+      consumes: []
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+        '400':
+          description: Bad Request
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '401':
+          description: Not Authorized
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '402':
+          description: Request Failed
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '405':
+          description: Method not Allowed
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Error 500
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+        - CustomerSection
+      summary: Add a new Customer
+      description: Add a new Customer
+      operationId: addCustomer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          description: Bad Request
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '401':
+          description: Not Authorized
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '402':
+          description: Request Failed
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '405':
+          description: Method not Allowed
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Error 500
+          schema:
+            $ref: '#/definitions/Error'
+  '/users':
     get:
       tags:
         - UserSection
@@ -224,7 +315,7 @@ paths:
         '200':
           description: Success
           schema:
-            $ref: '#/definitions/Customer'
+            $ref: '#/definitions/User'
         '400':
           description: Bad Request
           schema:
@@ -300,7 +391,7 @@ paths:
           description: Error 500
           schema:
             $ref: '#/definitions/Error'
-  /users/login:
+  '/users/login':
     post:
       tags:
         - UserSection
