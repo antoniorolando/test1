@@ -21,6 +21,97 @@ tags:
 schemes:
   - https
 paths:
+  /customers:
+    get:
+      tags:
+        - CustomerSection
+      summary: Get Customers List
+      description: Get Customers List
+      operationId: getCustomers
+      consumes: []
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+        '400':
+          description: Bad Request
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '401':
+          description: Not Authorized
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '402':
+          description: Request Failed
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '405':
+          description: Method not Allowed
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Error 500
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+        - CustomerSection
+      summary: Add a new Customer
+      description: Add a new Customer
+      operationId: addCustomer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          description: Bad Request
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '401':
+          description: Not Authorized
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '402':
+          description: Request Failed
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+        '405':
+          description: Method not Allowed
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Error 500
+          schema:
+            $ref: '#/definitions/Error'
   '/customers/{id}':
     get:
       tags:
@@ -160,98 +251,7 @@ paths:
           description: Error 500
           schema:
             $ref: '#/definitions/Error'
-  '/customers':
-    get:
-      tags:
-        - CustomerSection
-      summary: Get Customers List
-      description: Get Customers List
-      operationId: getCustomers
-      consumes: []
-      produces:
-        - application/json
-      parameters: []
-      responses:
-        '200':
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Customer'
-        '400':
-          description: Bad Request
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Error'
-        '401':
-          description: Not Authorized
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Error'
-        '402':
-          description: Request Failed
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Error'
-        '405':
-          description: Method not Allowed
-          schema:
-            $ref: '#/definitions/Error'
-        '500':
-          description: Error 500
-          schema:
-            $ref: '#/definitions/Error'
-    post:
-      tags:
-        - CustomerSection
-      summary: Add a new Customer
-      description: Add a new Customer
-      operationId: addCustomer
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          required: false
-          schema:
-            $ref: '#/definitions/Customer'
-      responses:
-        '200':
-          description: Success
-          schema:
-            $ref: '#/definitions/Customer'
-        '400':
-          description: Bad Request
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Error'
-        '401':
-          description: Not Authorized
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Error'
-        '402':
-          description: Request Failed
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Error'
-        '405':
-          description: Method not Allowed
-          schema:
-            $ref: '#/definitions/Error'
-        '500':
-          description: Error 500
-          schema:
-            $ref: '#/definitions/Error'
-  '/users':
+  /users:
     get:
       tags:
         - UserSection
@@ -391,7 +391,7 @@ paths:
           description: Error 500
           schema:
             $ref: '#/definitions/Error'
-  '/users/login':
+  /users/login:
     post:
       tags:
         - UserSection
@@ -416,6 +416,11 @@ paths:
           items:
             type: string
           collectionFormat: multi
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/LoginCredentials'
       responses:
         '200':
           description: Success
@@ -590,23 +595,6 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
-  Customer:
-    type: object
-    required:
-      - email
-    properties:
-      id:
-        type: integer
-        format: int32
-      name:
-        type: string
-      lastname:
-        type: string
-      email:
-        type: string
-        description: ''
-      phone:
-        type: string
   User:
     type: object
     properties:
@@ -629,6 +617,23 @@ definitions:
         type: integer
         format: int32
         description: User Status
+  Customer:
+    type: object
+    required:
+      - email
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+        description: ''
+      phone:
+        type: string
   Status:
     type: object
     properties:
@@ -636,16 +641,6 @@ definitions:
         type: integer
         format: int32
       value:
-        type: string
-  Category:
-    type: object
-    required:
-      - name
-    properties:
-      id:
-        type: integer
-        format: int32
-      name:
         type: string
   LoginCredentials:
     type: object
@@ -659,6 +654,16 @@ definitions:
       password:
         type: string
         description: Password
+  Category:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
   Type:
     type: object
     properties:
